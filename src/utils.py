@@ -131,3 +131,5 @@ class CustomDataset(data.Dataset):
     
     def initInformations(self):
         self.imageNames = glob(os.path.join(self.imagePath, "*.jpg"))
+        self.imageNames += glob(os.path.join(self.imagePath, "*.png"))
+        self.imageNames += glob(os.path.join(self.imagePath, "*.jpeg"))
