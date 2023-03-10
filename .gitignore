@@ -6,5 +6,6 @@
 *.jpg
 *.xml
 *.yaml
+*.png
 src/datasets/
 runs/
