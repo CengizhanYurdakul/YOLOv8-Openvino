@@ -19,3 +19,21 @@ In the `Output.png` image you can see the results of Torch, Openvino and Quantiz
 
 ## Test (Quantized Model)
 You can try the quantized model in the `test.py` file so that you can try it on a single image.
+## My Results
+### Speed Test
+```
+# yolov8n
+Vino Mean FPS:           107.43413924442955
+Quantized Vino Mean FPS: 258.2177983756975
+```
+### Size Test
+```
+# yolov8n
+Openvino size: 12.1 MB
+Quantized size: 3.1 MB
+```
+### Image Test
+
+<p align="center">
+  <img src="src/Assets/Output.png" title="logo">
+</p>
