@@ -3,7 +3,6 @@
 *.param
 *.bin
 *.pyc
-*.jpg
 *.xml
 *.yaml
 *.png
