@@ -34,6 +34,7 @@ class Converter:
         self.testImage = cv2.imread(self.args.imagePath)
         self.torchOutputImage = self.testImage.copy()
         self.vinoOutputImage = self.testImage.copy()
+        self.vinoQOutputImage = self.testImage.copy()
         
     def initTorchModel(self):
         self.torchModel = YOLO(self.args.modelPath)
@@ -151,22 +152,30 @@ class Converter:
             
         boxes = result[quantizedCompiledModel.output(0)]
         input_hw = inputTensor.shape[2:]
-        detections = postprocess(pred_boxes=boxes, input_hw=input_hw, orig_img=frame)
+        detections = postprocess(pred_boxes=boxes, input_hw=input_hw, orig_img=self.vinoQOutputImage)
         
         for i in detections[0]["det"]:
-            cv2.rectangle(frame, (int(i[0]), int(i[1])), (int(i[2]), int(i[3])), (255, 0, 0), 3)
+            cv2.rectangle(self.vinoQOutputImage, (int(i[0]), int(i[1])), (int(i[2]), int(i[3])), (255, 0, 0), 3)
         
         ppp = PrePostProcessor(quantizedModel)
         ppp.input(0).tensor().set_shape([1, self.args.imageSize, self.args.imageSize, 3]).set_element_type(Type.u8).set_layout(Layout('NHWC'))
         ppp.input(0).preprocess().convert_element_type(Type.f32).convert_layout(Layout('NCHW')).scale([255., 255., 255.])
         quantizedModelWithPreprocess = ppp.build()
         serialize(quantizedModelWithPreprocess, "%s/best_openvino_model/quantized_best.xml" % self.args.modelPath.replace("/" + self.args.modelPath.split("/")[-1], ""))
-        
+    
+    def visualizeOutputs(self):
+        concat = np.concatenate([self.torchOutputImage, self.vinoOutputImage, self.vinoQOutputImage], axis=1)
+        cv2.imwrite("Output.png", concat)
+    
+    def printSpeedTest(self):
+        print("Vino Mean FPS: \t", 1/self.vinoMeanTime)
+        print("Quantized Vino Mean FPS: \t", 1/self.vinoQMeanTime)
+        print("DONE!")
+    
     def convert(self):
         self.inferenceTorch()
         self.torch2openvino()
         self.inferenceOpenvino()
         self.quantizeOpenvino()
-        
-        print("Vino Mean FPS: \t", 1/self.vinoMeanTime)
-        print("Quantized Vino Mean FPS: \t", 1/self.vinoQMeanTime)
+        self.visualizeOutputs()
+        self.printSpeedTest()
