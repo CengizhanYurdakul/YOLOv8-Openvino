@@ -5,6 +5,5 @@
 *.pyc
 *.xml
 *.yaml
-Output.png
 src/datasets/
 runs/
