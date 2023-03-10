@@ -14,5 +14,5 @@ python main.py --modelPath src/Models/best.pt --imagePath src/Assets/testImage.j
 ```
 In the `Output.png` image you can see the results of Torch, Openvino and Quantized Openvino models respectively.
 
-## Testing (Quantized Model)
+## Test (Quantized Model)
 You can try the quantized model in the `test.py` file so that you can try it on a single image.
