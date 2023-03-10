@@ -1,4 +1,7 @@
 # YOLOv8 Openvino Conversion+Quantization
+<p align="center">
+  <img src="src/Assets/logo.png" width="350" title="logo">
+</p>
 
 ## Installation
 ```
