@@ -2,3 +2,10 @@
 *.onnx
 *.param
 *.bin
+*.pyc
+*.jpg
+*.xml
+*.yaml
+*.txt
+src/datasets/
+runs/
