@@ -7,7 +7,6 @@ conda activate yolorepo
 python -m pip install --upgrade pip
 pip install -r requirements.txt -f https://download.pytorch.org/whl/cpu
 ```
-
 ## Inference (Converting & Quantization)
 Add the YOLOv8 model you want to convert to the `src/Models` path. Then add the necessary parameters to the terminal command below and run it. 
 ```
