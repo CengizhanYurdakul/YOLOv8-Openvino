@@ -15,6 +15,11 @@ Add the YOLOv8 model you want to convert to the `src/Models` path. Then add the 
 ```
 python main.py --modelPath src/Models/best.pt --imagePath src/Assets/testImage.jpg --datasetPath src/datasets/val/images --imageSize 480
 ```
+- modelPath: Path of the pretrained yolo model.
+- imagePath: Path of the image that will be used to compare the outputs.
+- datasetPath: Path of the dataset that will be used for calibration during quantization.
+- imageSize: Image size that the model trained.
+
 In the `Output.png` image you can see the results of Torch, Openvino and Quantized Openvino models respectively.
 
 ## Test (Quantized Model)
